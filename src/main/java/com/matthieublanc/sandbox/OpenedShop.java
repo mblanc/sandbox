@@ -10,7 +10,6 @@ public class OpenedShop {
 	private int[] C;
 	private int[] D;
 
-
 	public int solution(int[] A, int[] B, int[] C, int[] D) {
 		this.A = A;
 		this.B = B;
@@ -42,17 +41,17 @@ public class OpenedShop {
 		indexesOfSquareAlreadyVisited.add(squareIndex);
 		for (int i = 0; i < A.length; i++) {
 			int nextTime = C[i] + time;
-			if (minTime == -1 || nextTime < minTime) {
+			if ((minTime == -1 || nextTime < minTime) && nextTime <= max) {
 				if (A[i] == squareIndex && !indexesOfSquareAlreadyVisited.contains(B[i])) {
 					if (nextTime <= D[B[i]] && (minTime == -1 || nextTime < minTime)) {
 						minTime = nextTime;
-					} else if (nextTime <= max) {
+					} else {
 						minTime = paths(B[i], nextTime, new ArrayList<Integer>(indexesOfSquareAlreadyVisited), max, minTime);
 					}
 				} else if (B[i] == squareIndex && !indexesOfSquareAlreadyVisited.contains(A[i])) {
 					if (nextTime <= D[A[i]] && (minTime == -1 || nextTime < minTime)) {
 						minTime = nextTime;
-					} else if (nextTime <= max) {
+					} else {
 						minTime = paths(A[i], nextTime, new ArrayList<Integer>(indexesOfSquareAlreadyVisited), max, minTime);
 					}
 				}
