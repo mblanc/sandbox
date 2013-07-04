@@ -1,41 +1,62 @@
 package com.matthieublanc.sandbox.codility;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OpenedShop {
+	
+	private int[] A;
+	private int[] B;
+	private int[] C;
+	private int[] D;
 
-	public static int[] A = new int[] { 0, 1, 2, 1 };
-	public static int[] B = new int[] { 1, 2, 3, 3 };
-	public static int[] C = new int[] { 2, 3, 4, 5 };
-
-	public static int[] D = new int[] { -1, 1, -1, 8 };
-
-	public static void main(String[] args) {
-		System.out.println(solution(A, B, C, D));
+	public int solution(int[] A, int[] B, int[] C, int[] D) {
+		this.A = A;
+		this.B = B;
+		this.C = C;
+		this.D = D;
+		
+		int max = maxValue(D);
+		int squareIndex = 0;
+		List<Integer> indexesOfSquareAlreadyVisited = new ArrayList<Integer>();
+		int time = 0;
+		int minTime = -1;
+		if (D[0] != -1) {
+			return 0;
+		}
+		return paths(squareIndex, time, indexesOfSquareAlreadyVisited, max, minTime);
 	}
 
-	public static int solution(int[] A, int[] B, int[] C, int[] D) {
-		return minTime(A, B, C, D, 0, 0);
+	private static int maxValue(int[] ints) {
+		int max = ints[0];
+		for (int ktr = 0; ktr < ints.length; ktr++) {
+			if (ints[ktr] > max) {
+				max = ints[ktr];
+			}
+		}
+		return max;
 	}
 
-	public static int minTime(int[] A, int[] B, int[] C, int[] D, int start, int time) {
-		int min = -1;
+	public int paths(int squareIndex, int time, List<Integer> indexesOfSquareAlreadyVisited, int max, int minTime) {
+		indexesOfSquareAlreadyVisited.add(squareIndex);
 		for (int i = 0; i < A.length; i++) {
-			if (A[i] == start) {
-
-			} else if (B[i] == start) {
-
+			int nextTime = C[i] + time;
+			if ((minTime == -1 || nextTime < minTime) && nextTime <= max) {
+				if (A[i] == squareIndex && !indexesOfSquareAlreadyVisited.contains(B[i])) {
+					if (nextTime <= D[B[i]] && (minTime == -1 || nextTime < minTime)) {
+						minTime = nextTime;
+					} else {
+						minTime = paths(B[i], nextTime, new ArrayList<Integer>(indexesOfSquareAlreadyVisited), max, minTime);
+					}
+				} else if (B[i] == squareIndex && !indexesOfSquareAlreadyVisited.contains(A[i])) {
+					if (nextTime <= D[A[i]] && (minTime == -1 || nextTime < minTime)) {
+						minTime = nextTime;
+					} else {
+						minTime = paths(A[i], nextTime, new ArrayList<Integer>(indexesOfSquareAlreadyVisited), max, minTime);
+					}
+				}
 			}
 		}
-		return -1;
+		return minTime;
 	}
-
-	public static int max(int[] array) {
-		int result = -1;
-		for (int value : array) {
-			if (value > result) {
-				result = value;
-			}
-		}
-		return result;
-	}
-
 }
