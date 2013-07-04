@@ -6,6 +6,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.matthieublanc.sandbox.codility.OpenedShop;
+
 public class OpenedShopTest {
 
     private OpenedShop openedShop;

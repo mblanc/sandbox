@@ -8,6 +8,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.matthieublanc.sandbox.codility.CannonBalls;
+
 public class CannonBallsTest {
 
 	// ([1, 2, 0, 4, 3, 2, 1, 5, 7], [2, 8, 0, 7, 6, 5, 3, 4, 5, 6, 5]) 2, 2, 2, 4, 3, 3, 5, 6, 7
