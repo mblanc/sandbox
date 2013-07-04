@@ -1,4 +1,4 @@
-package com.matthieublanc.sandbox;
+package com.matthieublanc.sandbox.codility;
 
 import java.util.Arrays;
 
